@@ -9,5 +9,29 @@ services:
       - $API_PORT:$API_PORT
     env_file:
       - .env
+    networks:
+      - server
+    depends_on:
+      - mongo_db
+  mongo_db:
+    image: mongo:5.0.2
+    container_name: web-scratchpad_mongo
+    restart: unless-stopped
+    hostname: $MONGO_HOST
+    env_file:
+      - .env
+    networks:
+      - server
+    volumes:
+      - ./mongodb:/data/db
+    ports:
+      - $MONGO_PORT:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_DATABASE_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_DATABASE_ROOT_PASSWORD
+      - MONGO_INITDB_DATABASE=$MONGO_DATABASE_NAME
+networks:
+  server:
+    driver: bridge
 volumes:
   data:
