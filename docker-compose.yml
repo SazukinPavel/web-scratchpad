@@ -1,12 +1,13 @@
 version: "3"
 
 services:
-  web:
+  api:
+    container_name: web-scratchpad_api
     build: ./api
+    hostname: $API_HOST
     ports:
-      - ${API_PORT}:8080
+      - $API_PORT:$API_PORT
     env_file:
       - .env
-
 volumes:
   data:
