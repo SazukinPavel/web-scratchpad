@@ -2,6 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Note } from 'src/models/note.model';
 import { AddNoteInput } from './dto/add-note.input';
 import { NotesService } from './notes.service';
+import { UpdateNoteInput } from './dto/update-note.input';
 
 @Resolver((of) => Note)
 export class NoteResolver {
@@ -18,7 +19,17 @@ export class NoteResolver {
   }
 
   @Mutation((returns) => Note)
-  async addNote(@Args('addNoteInput') addNoteInput: AddNoteInput) {
+  async add(@Args('addNoteInput') addNoteInput: AddNoteInput) {
     return this.notesService.create(addNoteInput);
+  }
+
+  @Mutation((returns) => Boolean)
+  async delete(@Args('id', { type: () => String }) id: string) {
+    return this.notesService.delete(id);
+  }
+
+  @Mutation((returns) => Note)
+  async update(@Args('updateNoteInput') updateNoteInput: UpdateNoteInput) {
+    return this.notesService.update(updateNoteInput);
   }
 }
