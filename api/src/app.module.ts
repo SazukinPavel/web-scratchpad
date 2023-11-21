@@ -3,9 +3,11 @@ import { NotesModule } from './notes/notes.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
@@ -25,9 +27,20 @@ import { GraphQLModule } from '@nestjs/graphql';
         return graphQLFormattedError;
       },
     }),
-    MongooseModule.forRoot(
-      `mongodb://${process.env.MONGO_DATABASE_ROOT_USERNAME}:${process.env.MONGO_DATABASE_ROOT_PASSWORD}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/${process.env.MONGO_DATABASE_NAME}?authSource=admin`,
-    ),
+    MongooseModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        const username = configService.get('MONGO_DATABASE_ROOT_USERNAME');
+        const password = configService.get('MONGO_DATABASE_ROOT_PASSWORD');
+        const host = configService.get('MONGO_HOST');
+        const port = configService.get('MONGO_PORT');
+        const dbName = configService.get('MONGO_DATABASE_NAME');
+
+        return {
+          uri: `mongodb://${username}:${password}@${host}:${port}/${dbName}?authSource=admin`,
+        };
+      },
+    }),
     NotesModule,
   ],
 })

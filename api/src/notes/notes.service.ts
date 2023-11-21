@@ -10,7 +10,7 @@ export class NotesService {
   constructor(@InjectModel(Note.name) private noteModel: Model<Note>) {}
 
   async create(addNoteInput: AddNoteInput): Promise<Note> {
-    return await this.noteModel.create({
+    return this.noteModel.create({
       ...addNoteInput,
     });
   }
