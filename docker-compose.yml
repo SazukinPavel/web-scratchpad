@@ -14,7 +14,7 @@ services:
     depends_on:
       - mongo_db
   mongo_db:
-    image: mongo:5.0.2
+    image: mongo
     container_name: web-scratchpad_mongo
     restart: unless-stopped
     hostname: $MONGO_HOST
@@ -30,6 +30,23 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=$MONGO_DATABASE_ROOT_USERNAME
       - MONGO_INITDB_ROOT_PASSWORD=$MONGO_DATABASE_ROOT_PASSWORD
       - MONGO_INITDB_DATABASE=$MONGO_DATABASE_NAME
+  pg_db:
+    container_name: web-scratchpad_pg
+    image: postgres
+    restart: always
+    hostname: $PG_HOST
+    environment:
+      - POSTGRES_PASSWORD=$PG_ROOT_PASSWORD
+      - POSTGRES_USER=$PG_ROOT_USER
+      - POSTGRES_DB=$PG_DATABASE
+    env_file:
+      - .env
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - $PG_PORT:5432
+    networks:
+      - server
 networks:
   server:
     driver: bridge

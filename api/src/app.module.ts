@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -38,6 +39,26 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
         return {
           uri: `mongodb://${username}:${password}@${host}:${port}/${dbName}?authSource=admin`,
+        };
+      },
+    }),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        const host = configService.get('PG_HOST');
+        const port = configService.get('PG_PORT');
+        const username = configService.get('PG_ROOT_USER');
+        const password = configService.get('PG_ROOT_PASSWORD');
+        const dbName = configService.get('PG_DATABASE');
+
+        return {
+          type: 'postgres',
+          host: host,
+          port: +port,
+          username: username,
+          password: password,
+          database: dbName,
+          synchronize: true,
         };
       },
     }),

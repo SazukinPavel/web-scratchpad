@@ -1,3 +1,4 @@
 .env
 mongodb
 .idea
+pgdata
