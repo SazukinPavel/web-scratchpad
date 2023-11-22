@@ -5,6 +5,9 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './models/user.model';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -59,10 +62,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
           password: password,
           database: dbName,
           synchronize: true,
+          entities: [User],
         };
       },
     }),
     NotesModule,
+    UsersModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
