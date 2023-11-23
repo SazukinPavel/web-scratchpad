@@ -3,13 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/models/user.model';
 import { Repository } from 'typeorm';
 import CreateUserDto from './dto/create-user.dto';
-import { hash } from 'bcrypt';
+import { CryptoService } from 'src/services/crypto.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    private readonly usersRepository: Repository<User>,
+    private readonly cryptoService: CryptoService,
   ) {}
 
   getAll() {
@@ -25,7 +26,7 @@ export class UsersService {
   }
 
   async add(dto: CreateUserDto) {
-    const hashedPass = await hash(dto.password, 10);
+    const hashedPass = await this.cryptoService.hash(dto.password);
 
     const user = this.usersRepository.create({
       ...dto,

@@ -8,6 +8,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './models/user.model';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { JwtService } from './services/jwt.service';
+import { CryptoService } from './services/crypto.service';
 
 @Module({
   imports: [

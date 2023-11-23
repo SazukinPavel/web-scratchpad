@@ -4,17 +4,18 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
-import { ConfigService } from '@nestjs/config';
-import { sign } from 'jsonwebtoken';
-import { compare } from 'bcrypt';
 import RegisterDto from './dto/register.dto';
 import LoginDto from './dto/login.dto';
+import { JwtService } from 'src/services/jwt.service';
+import { CryptoService } from 'src/services/crypto.service';
+import { User } from 'src/models/user.model';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
-    private readonly configService: ConfigService,
+    private readonly jwtService: JwtService,
+    private readonly cryptoService: CryptoService,
   ) {}
 
   async login(dto: LoginDto) {
@@ -26,7 +27,7 @@ export class AuthService {
       throw new ForbiddenException('User with this username doesnt exist');
     }
 
-    const isPasswordEqual = await compare(
+    const isPasswordEqual = await this.cryptoService.compare(
       dto.password,
       userWithSameUsername.password,
     );
@@ -35,16 +36,7 @@ export class AuthService {
       throw new ForbiddenException('Bad password');
     }
 
-    return {
-      user: userWithSameUsername,
-      token: sign(
-        {
-          id: userWithSameUsername.id,
-          username: userWithSameUsername.username,
-        },
-        this.configService.get('JWT_SECRET_KEY'),
-      ),
-    };
+    return this.getAuthResponse(userWithSameUsername);
   }
 
   async register(dto: RegisterDto) {
@@ -57,12 +49,13 @@ export class AuthService {
 
     const user = await this.usersService.add(dto);
 
+    return this.getAuthResponse(user);
+  }
+
+  private getAuthResponse(user: User) {
     return {
       user: user,
-      token: sign(
-        { id: user.id, username: user.username },
-        this.configService.get('JWT_SECRET_KEY'),
-      ),
+      token: this.jwtService.sign({ id: user.id, username: user.username }),
     };
   }
 }
