@@ -3,8 +3,11 @@ import { Note } from 'src/models/note.model';
 import { AddNoteInput } from './dto/add-note.input';
 import { NotesService } from './notes.service';
 import { UpdateNoteInput } from './dto/update-note.input';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from 'src/guards/gql-auth.guard';
 
 @Resolver((of) => Note)
+@UseGuards(GqlAuthGuard)
 export class NoteResolver {
   constructor(private readonly notesService: NotesService) {}
 
