@@ -39,11 +39,13 @@ import { JwtService } from './services/jwt.service';
         const username = configService.get('MONGO_DATABASE_ROOT_USERNAME');
         const password = configService.get('MONGO_DATABASE_ROOT_PASSWORD');
         const host = configService.get('MONGO_HOST');
-        const port = configService.get('MONGO_PORT');
         const dbName = configService.get('MONGO_DATABASE_NAME');
+        const driver = configService.get('MONGO_DRIVER');
+        const params = configService.get('MONGO_PARAMS');
+        const port = configService.get('MONGO_PORT');
 
         return {
-          uri: `mongodb://${username}:${password}@${host}:${port}/${dbName}?authSource=admin`,
+          uri:`${driver}://${username}:${password}@${host}${port?":"+port:''}/${dbName}?${params}`
         };
       },
     }),
