@@ -13,6 +13,17 @@ services:
       - server
     depends_on:
       - mongo_db
+      - pg_db
+  ui:
+    container_name: web-scratchpad_ui
+    build: ./ui
+    hostname: $CLIENT_HOST
+    ports:
+      - $CLIENT_PORT:5173
+    env_file:
+      - .env
+    networks:
+      - server
   mongo_db:
     image: mongo
     container_name: web-scratchpad_mongo
