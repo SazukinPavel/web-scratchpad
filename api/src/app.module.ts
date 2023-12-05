@@ -57,6 +57,7 @@ import { JwtService } from './services/jwt.service';
         const username = configService.get('PG_ROOT_USER');
         const password = configService.get('PG_ROOT_PASSWORD');
         const dbName = configService.get('PG_DATABASE');
+        const ssl = +configService.get('PG_IS_SSL')===1;
 
         return {
           type: 'postgres',
@@ -67,6 +68,7 @@ import { JwtService } from './services/jwt.service';
           database: dbName,
           synchronize: true,
           entities: [User],
+          ssl
         };
       },
     }),
