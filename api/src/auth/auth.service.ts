@@ -75,7 +75,7 @@ export class AuthService {
     response.cookie(
       'web-scratchpad_refresh_token',
       this.jwtService.signRefresh({ id, username }),
-      { sameSite: 'none' }
+      { sameSite: 'none', secure: true }
     );
   }
 
