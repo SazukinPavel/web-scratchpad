@@ -36,7 +36,6 @@ export default function SignIn() {
             setIsLoginLoading(true)
             const data = await api.auth.login(dto)
             dispatch(setAuthData(data))
-            dispatch(showSuccessSnackbar({message: 'Welcome ' + data.user.username}))
         } catch (e) {
             dispatch(showErrorSnackbar({message: e.response.data.message}))
         } finally {

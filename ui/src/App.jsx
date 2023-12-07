@@ -6,13 +6,14 @@ import api from "./api.js";
 import AppSnackbar from "./components/snackbar";
 import {setAuthData} from "./store/slices/auth.js";
 import {Skeleton} from "@mui/material";
+import {showSuccessSnackbar} from "./store/slices/snackbar.js";
 
 
 function App() {
 
     const [isAuthLoading, setIsAuthLoading] = useState(true)
 
-    const {isAuthorized} = useSelector(state => state.auth)
+    const {isAuthorized,user} = useSelector(state => state.auth)
     const dispatch = useDispatch()
 
     const location = useLocation()
@@ -50,6 +51,12 @@ function App() {
     useEffect(() => {
         tryAuthorization()
     }, [])
+
+    useEffect(() => {
+        if(user?.username){
+            dispatch(showSuccessSnackbar({message: 'Welcome ' + user.username}))
+        }
+    }, [user]);
 
 
     if (isAuthLoading) {
