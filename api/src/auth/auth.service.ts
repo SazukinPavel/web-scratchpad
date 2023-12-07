@@ -18,7 +18,7 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly cryptoService: CryptoService,
-  ) {}
+  ) { }
 
   async login(dto: LoginDto, response: Response) {
     const user = await this.usersService.findByUsername(dto.username);
@@ -66,7 +66,7 @@ export class AuthService {
       this.setRefreshToken(user, response);
 
       return this.getAuthResponse(user);
-    } catch(e:any) {
+    } catch (e: any) {
       throw new UnauthorizedException('Wrong token');
     }
   }
@@ -75,6 +75,7 @@ export class AuthService {
     response.cookie(
       'web-scratchpad_refresh_token',
       this.jwtService.signRefresh({ id, username }),
+      { sameSite: 'none' }
     );
   }
 
