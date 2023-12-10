@@ -8,12 +8,12 @@ import { User } from 'src/models/user.model';
 
 @Injectable()
 export class NotesService {
-  constructor(@InjectModel(Note.name) private noteModel: Model<Note>) { }
+  constructor(@InjectModel(Note.name) private noteModel: Model<Note>) {}
 
   async create(addNoteInput: AddNoteInput, user: User): Promise<Note> {
     return this.noteModel.create({
       ...addNoteInput,
-      ownerId: user.id
+      ownerId: user.id,
     });
   }
 
@@ -34,7 +34,9 @@ export class NotesService {
   }
 
   async findAll(user: User): Promise<Note[]> {
-    return this.noteModel.find({ ownerId: user.id })
+    return this.noteModel
+      .find({ ownerId: user.id })
+      .sort({ updatedAt: 'desc' });
   }
 
   async findOne(id: string, user: User): Promise<Note> {
