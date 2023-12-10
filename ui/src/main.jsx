@@ -17,6 +17,12 @@ import {RouterProvider} from "react-router-dom";
 const darkTheme = createTheme({
     palette: {
         mode: 'dark',
+        primary: {
+            main: '#9d22b8',
+        },
+        secondary: {
+            main: '#ca6bfd',
+        },
     },
 });
 

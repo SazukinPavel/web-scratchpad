@@ -1,16 +1,21 @@
-import * as React from 'react';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import {useDispatch, useSelector} from "react-redux";
-import {closeSnackbar} from "../../store/slices/snackbar.js";
+import {closeSnackbar} from "../../../store/slices/snackbar.js";
 import {Alert} from "@mui/material";
+import {Fragment} from "react";
+import {any} from "prop-types";
 
-export default function AppSnackbar() {
+AppSnackbar.propTypes = {
+    children: any,
+}
 
-    const {message,duration,isOpen,severity,position}=useSelector((state)=>state.snackbar)
-    const dispatch=useDispatch()
+export default function AppSnackbar({children}) {
+
+    const {message, duration, isOpen, severity, position} = useSelector((state) => state.snackbar)
+    const dispatch = useDispatch()
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -21,7 +26,7 @@ export default function AppSnackbar() {
     };
 
     const action = (
-        <React.Fragment>
+        <Fragment>
             <Button color="secondary" size="small" onClick={handleClose}>
                 UNDO
             </Button>
@@ -31,12 +36,13 @@ export default function AppSnackbar() {
                 color="inherit"
                 onClick={handleClose}
             >
-                <CloseIcon fontSize="small" />
+                <CloseIcon fontSize="small"/>
             </IconButton>
-        </React.Fragment>
+        </Fragment>
     );
 
     return (
+        <>
             <Snackbar
                 anchorOrigin={position}
                 open={isOpen}
@@ -47,5 +53,7 @@ export default function AppSnackbar() {
             >
                 <Alert severity={severity}>{message}</Alert>
             </Snackbar>
+            {children}
+        </>
     );
 }

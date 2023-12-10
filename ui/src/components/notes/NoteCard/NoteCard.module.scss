@@ -1,0 +1,26 @@
+.note-card{
+  .note-info{
+
+    .note-info__title{
+
+    }
+
+    .note-info__description{
+
+    }
+
+    .note-info__dates{
+      position: relative;
+
+      .note-info__updated__date{
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
+
+  .note-actions{
+    display: flex;
+    justify-content: end;
+  }
+}

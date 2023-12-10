@@ -9,12 +9,12 @@ import Container from '@mui/material/Container';
 import {Avatar} from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {useDispatch, useSelector} from "react-redux";
-import {setAuthData} from "../store/slices/auth.js";
+import {setAuthData} from "../../store/slices/auth.js";
 import {useNavigate} from "react-router-dom";
-import api from "../api.js";
+import api from "../../api.js";
 import {LoadingButton} from '@mui/lab';
 import {useEffect, useState} from "react";
-import {showErrorSnackbar, showSuccessSnackbar} from "../store/slices/snackbar.js";
+import {showErrorSnackbar} from "../../store/slices/snackbar.js";
 
 export default function SignIn() {
 

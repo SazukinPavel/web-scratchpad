@@ -3,9 +3,12 @@ import {gql} from "@apollo/client";
 export default gql`
   query list {
     list {
-      id
-      title
-      description
+        id
+        title
+        description
+        ownerId
+        createdAt
+        updatedAt
     }
   }
 `;

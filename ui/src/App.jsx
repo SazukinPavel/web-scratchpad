@@ -1,50 +1,27 @@
-import {Outlet, useLocation, useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {rootRoute} from "./router";
+import {Outlet,} from "react-router-dom";
+import {useEffect, useState,} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import api from "./api.js";
-import AppSnackbar from "./components/snackbar";
+import AppSnackbar from "./components/app/AppSnackbar";
 import {setAuthData} from "./store/slices/auth.js";
-import {Skeleton} from "@mui/material";
 import {showSuccessSnackbar} from "./store/slices/snackbar.js";
+import Spinner from "./components/Spinner/index.js";
 
 
 function App() {
 
-    const [isAuthLoading, setIsAuthLoading] = useState(true)
+    const [isAuthorizedLoading, setIsAuthorizedLoading] = useState(false)
 
-    const {isAuthorized,user} = useSelector(state => state.auth)
+    const {user} = useSelector(state => state.auth)
     const dispatch = useDispatch()
-
-    const location = useLocation()
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        if (isAuthLoading) {
-            return
-        }
-
-        const path = location.pathname?.slice(1)
-        const currentRoute = rootRoute.children.find(c => c.path === path)
-
-        if (!currentRoute) {
-            navigate('/login')
-        }
-
-        if (currentRoute.meta.role && !isAuthorized) {
-            navigate('/login')
-        } else if (!currentRoute.meta.role && isAuthorized) {
-            navigate('/me')
-        }
-    }, [location, isAuthLoading]);
 
     const tryAuthorization = async () => {
         try {
-            setIsAuthLoading(true)
+            setIsAuthorizedLoading(true)
             const data = await api.auth.me()
             dispatch(setAuthData(data))
         } finally {
-            setIsAuthLoading(false)
+            setIsAuthorizedLoading(false)
         }
     }
 
@@ -53,26 +30,19 @@ function App() {
     }, [])
 
     useEffect(() => {
-        if(user?.username){
+        if (user?.username) {
             dispatch(showSuccessSnackbar({message: 'Welcome ' + user.username}))
         }
     }, [user]);
 
-
-    if (isAuthLoading) {
-        return <Skeleton
-            sx={{bgcolor: 'grey.900'}}
-            variant="rectangular"
-            width="100vw"
-            height="100vh"
-        />
+    if (isAuthorizedLoading) {
+        return <Spinner/>
     }
 
     return (
-        <>
-            <AppSnackbar/>
+        <AppSnackbar>
             <Outlet/>
-        </>
+        </AppSnackbar>
     )
 }
 

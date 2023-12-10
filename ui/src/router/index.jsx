@@ -1,7 +1,10 @@
 import {createBrowserRouter} from "react-router-dom";
-import Login from "../pages/Login.jsx";
-import Main from "../pages/Main.jsx";
 import App from "../App.jsx";
+import Login from "../pages/Login/index.js";
+import Main from "../pages/Main/index.js";
+import AddNote from "../pages/AddNote/index.js";
+import ProtectedRoute from "./ProtectedRoute.jsx";
+import EditNote from "../pages/EditNote/index.js";
 
 export const rootRoute = {
     path: '/',
@@ -10,12 +13,18 @@ export const rootRoute = {
         {
             path: "login",
             element: <Login/>,
-            meta: {}
         },
         {
             path: "me",
-            element: <Main/>,
-            meta: {role: 1}
+            element: (<ProtectedRoute component={Main}/>),
+        },
+        {
+            path: "notes/add",
+            element: (<ProtectedRoute component={AddNote}/>),
+        },
+        {
+            path: "notes/:id/edit",
+            element: (<ProtectedRoute component={EditNote}/>),
         },
     ]
 }

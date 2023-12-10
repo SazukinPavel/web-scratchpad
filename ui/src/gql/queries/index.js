@@ -1,5 +1,7 @@
-import GetNotes from "./getNotes.js";
+import GetNotesQuery from "./getNotes.js";
+import OneNoteQuery from "./getNoteById.js";
 
 export {
-    GetNotes
+    GetNotesQuery,
+    OneNoteQuery
 }
