@@ -22,11 +22,11 @@ export class Note {
 
   @Field()
   @Prop()
-  createdAt: string;
+  createdAt: Date;
 
   @Field()
   @Prop()
-  updatedAt: string;
+  updatedAt: Date;
 }
 
 export type NoteDocument = HydratedDocument<Note>;
