@@ -17,6 +17,7 @@ import { JwtService } from './services/jwt.service';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
+      path:"api/graphql",
       formatError: (error: any) => {
         const graphQLFormattedError = {
           message:

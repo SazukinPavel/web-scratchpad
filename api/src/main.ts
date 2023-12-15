@@ -6,6 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(cookieParser());
+  app.setGlobalPrefix(process.env.API_PREFIX)
 
   app.enableCors({
     "origin": process.env.CLIENT_ORIGIN,
