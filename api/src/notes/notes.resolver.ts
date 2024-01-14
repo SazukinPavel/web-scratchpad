@@ -14,7 +14,7 @@ export class NoteResolver {
   constructor(private readonly notesService: NotesService) { }
 
   @Query((returns) => Note)
-  async one(
+  async oneNote(
     @Args('id', { type: () => String }) id: string,
     @CurrentUser() user: User,
   ) {
@@ -22,17 +22,21 @@ export class NoteResolver {
   }
 
   @Query((returns) => [Note])
-  async list(@CurrentUser() user: User,) {
+  async notesList(@CurrentUser() user: User, @Args('topic', { type: () => String, nullable: true }) topic: string) {
+    if (topic) {
+      return this.notesService.findAllByTopic(topic, user)
+    }
+
     return this.notesService.findAll(user);
   }
 
   @Mutation((returns) => Note)
-  async add(@Args('addNoteInput') addNoteInput: AddNoteInput, @CurrentUser() user: User,) {
+  async addNote(@Args('addNoteInput') addNoteInput: AddNoteInput, @CurrentUser() user: User,) {
     return this.notesService.create(addNoteInput, user);
   }
 
   @Mutation((returns) => Boolean)
-  async delete(@Args('id', { type: () => String }) id: string, @CurrentUser() user: User,) {
+  async deleteN(@Args('id', { type: () => String }) id: string, @CurrentUser() user: User,) {
     return this.notesService.delete(id, user);
   }
 

@@ -1,13 +1,10 @@
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class AddNoteInput {
+export class UpdateTopicInput {
   @Field()
   title: string;
 
   @Field()
-  description: string;
-
-  @Field()
-  topic: string;
+  id: string;
 }

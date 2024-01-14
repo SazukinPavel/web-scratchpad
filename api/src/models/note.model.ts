@@ -1,6 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
+import { Topic } from './topic.model';
 
 @ObjectType()
 @Schema({ timestamps: true })
@@ -23,6 +24,10 @@ export class Note {
   @Field()
   @Prop()
   createdAt: Date;
+
+  @Field()
+  @Prop({ type: Types.ObjectId, ref: 'Topic' })
+  topic: Topic
 
   @Field()
   @Prop()

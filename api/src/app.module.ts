@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { AuthMiddleware } from './middlewares/auth.middleware';
 import { JwtService } from './services/jwt.service';
+import { TopicsModule } from './topics/topics.module';
 
 @Module({
   imports: [
@@ -76,6 +77,7 @@ import { JwtService } from './services/jwt.service';
     NotesModule,
     UsersModule,
     AuthModule,
+    TopicsModule,
   ],
   providers: [JwtService],
 })
