@@ -1,12 +1,11 @@
 import {gql} from "@apollo/client";
 
 export default gql`
-  query list {
-    list {
+    query list($topic: String) {
+        notesList(topic: $topic) {
         id
         title
         description
-        ownerId
         createdAt
         updatedAt
     }

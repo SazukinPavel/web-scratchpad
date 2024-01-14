@@ -2,7 +2,7 @@ import {gql} from "@apollo/client";
 
 export default gql`
     query One($id: String!) {
-        one(id: $id) {
+        oneNote(id: $id) {
             id
             title
             description

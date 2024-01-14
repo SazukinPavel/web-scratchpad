@@ -1,11 +1,11 @@
 import Container from "@mui/material/Container";
-import { useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useMutation, useQuery} from "@apollo/client";
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
-import { showErrorSnackbar} from "../../store/slices/snackbar.js";
+import {showErrorSnackbar} from "../../store/slices/snackbar.js";
 import NoteForm from "../../components/notes/NoteForm/index.js";
-import { UpdateNoteMutation} from "../../gql/mutations/index.js";
+import {UpdateNoteMutation} from "../../gql/mutations/index.js";
 import Spinner from "../../components/Spinner/index.js";
 import {GetNotesQuery, OneNoteQuery} from "../../gql/queries/index.js";
 
@@ -21,7 +21,8 @@ export default function EditNote() {
     const handleSubmit = async (dto) => {
         await updateNoteMutation({variables:{...dto}})
         refetchNotes()
-        navigate('/me')
+        navigate(-1)
+
     };
 
     useEffect(() => {
@@ -38,7 +39,7 @@ export default function EditNote() {
     useEffect(()=>{
         if(getError?.message){
             dispatch(showErrorSnackbar({message:getError.message}))
-            navigate('/me')
+            navigate(-1)
         }
     },[getError])
 

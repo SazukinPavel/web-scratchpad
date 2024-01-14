@@ -27,7 +27,7 @@ export default function NoteForm({data, btn, title, onSubmit}) {
     }
 
     const onCancelClick = () => {
-        navigate('/me')
+        navigate(-1)
     }
 
     useEffect(() => {
@@ -68,9 +68,20 @@ export default function NoteForm({data, btn, title, onSubmit}) {
                     minRows={5}
                     name="description"
                     label="Description"
-                    type="description"
                     id="description"
                     autoComplete="description"
+                />
+                <TextField
+                    value={formData.topic}
+                    onInput={(e) => setValue('topic', e.target.value)}
+                    margin="normal"
+                    fullWidth
+                    required
+                    minRows={5}
+                    name="topic"
+                    label="Topic"
+                    id="topic"
+                    autoComplete="topic"
                 />
                 <Box
                     sx={{mt: 3, mb: 2, justifyContent: "end", display: "flex"}}

@@ -45,7 +45,7 @@ export default function SignIn() {
 
     useEffect(() => {
         if (isAuthorized) {
-            navigate('/me')
+            navigate(-1)
         }
     }, [isAuthorized]);
 

@@ -19,7 +19,8 @@ export default function AddNote() {
     const handleSubmit = async (dto) => {
         await addNoteMutation({variables: {...dto}})
         refetch()
-        navigate('/me')
+        navigate(-1)
+
     };
 
     useEffect(() => {
