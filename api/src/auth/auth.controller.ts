@@ -13,6 +13,11 @@ export class AuthController {
     return this.authService.login(dto, response);
   }
 
+  @Post('logout')
+  logout(@Res({ passthrough: true }) response: Response) {
+    return this.authService.logout(response);
+  }
+
   @Post('register')
   register(
     @Body() dto: RegisterDto,

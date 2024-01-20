@@ -41,6 +41,12 @@ export class AuthService {
     return this.getAuthResponse(user);
   }
 
+  logout(response: Response) {
+    response.cookie(
+      'web-scratchpad_refresh_token', null
+    )
+  }
+
   async register(dto: RegisterDto, response: Response) {
     const userWithSameUsername = await this.usersService.findByUsername(
       dto.username,
