@@ -9,6 +9,9 @@ export default gql`
             ownerId
             createdAt
             updatedAt
+            topic {
+                title
+            }
         }
     }
 `;
