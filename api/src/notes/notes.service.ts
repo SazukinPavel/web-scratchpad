@@ -33,7 +33,9 @@ export class NotesService {
   async update({ id, ...data }: UpdateNoteInput, user: User) {
     await this.findOne(id, user);
 
-    await this.noteModel.findByIdAndUpdate(id, { ...data });
+    const topic = await this.topicsService.findOrCreate(data.topic, user)
+
+    await this.noteModel.findByIdAndUpdate(id, { ...data, topic: (topic as any)._id });
 
     return this.findOne(id, user);
   }

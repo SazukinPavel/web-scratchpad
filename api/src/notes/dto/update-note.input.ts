@@ -10,4 +10,7 @@ export class UpdateNoteInput {
 
   @Field()
   id: string;
+
+  @Field()
+  topic: string;
 }

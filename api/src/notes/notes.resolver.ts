@@ -36,12 +36,12 @@ export class NoteResolver {
   }
 
   @Mutation((returns) => Boolean)
-  async deleteN(@Args('id', { type: () => String }) id: string, @CurrentUser() user: User,) {
+  async deleteNote(@Args('id', { type: () => String }) id: string, @CurrentUser() user: User,) {
     return this.notesService.delete(id, user);
   }
 
   @Mutation((returns) => Note)
-  async update(@Args('updateNoteInput') updateNoteInput: UpdateNoteInput, @CurrentUser() user: User,) {
+  async updateNote(@Args('updateNoteInput') updateNoteInput: UpdateNoteInput, @CurrentUser() user: User,) {
     return this.notesService.update(updateNoteInput, user);
   }
 }

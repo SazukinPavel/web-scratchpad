@@ -52,9 +52,6 @@ export class TopicsService {
     async findOneByTitle(title: string, user: User): Promise<Topic> {
         const topic = await this.topicModel.findOne({ title, ownerId: user.id });
 
-
-        console.log(topic, topic?.ownerId, user.id);
-
         if (!topic) {
             throw new NotFoundException(`Topic with title ${title} not exist`);
         }
