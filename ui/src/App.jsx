@@ -10,7 +10,7 @@ import Spinner from "./components/Spinner/index.js";
 function App() {
   const [isAuthorizedLoading, setIsAuthorizedLoading] = useState(false);
 
-  const { user } = useSelector((state) => state.auth);
+  const { user,token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const tryAuthorization = async () => {
@@ -33,7 +33,7 @@ function App() {
     }
   }, [user]);
 
-  if (isAuthorizedLoading) {
+  if (isAuthorizedLoading || !token) {
     return <Spinner />;
   }
 
