@@ -9,7 +9,7 @@ import Spinner from "./components/Spinner/index.js";
 import AppBar from "./components/app/AppBar/AppBar.jsx";
 
 function App() {
-  const [isAuthorizedLoading, setIsAuthorizedLoading] = useState(false);
+  const [isAuthorizedLoading, setIsAuthorizedLoading] = useState(true);
 
   const { user, token, isAuthorized } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -34,7 +34,7 @@ function App() {
     }
   }, [user]);
 
-  if (isAuthorizedLoading || !token) {
+  if (isAuthorizedLoading || (isAuthorized && !token)) {
     return <Spinner />;
   }
 
