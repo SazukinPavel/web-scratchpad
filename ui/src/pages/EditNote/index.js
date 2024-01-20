@@ -1,3 +1,3 @@
-import EditNote from './EditNote.jsx'
+import EditNote from "./EditNote.jsx";
 
-export default EditNote
+export default EditNote;

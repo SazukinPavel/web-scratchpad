@@ -1,3 +1,3 @@
-import Topics from './Topics.jsx'
+import Topics from "./Topics.jsx";
 
-export default Topics
+export default Topics;

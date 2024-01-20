@@ -1,3 +1,3 @@
-import Notes from './Notes.jsx'
+import Notes from "./Notes.jsx";
 
-export default Notes
+export default Notes;

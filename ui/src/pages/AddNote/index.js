@@ -1,3 +1,3 @@
 import AddNote from "./AddNote.jsx";
 
-export default AddNote
+export default AddNote;

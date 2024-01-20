@@ -1,7 +1,7 @@
-import {gql} from "@apollo/client";
+import { gql } from "@apollo/client";
 
 export default gql`
   mutation deleteNote($id: String!) {
-      deleteNote(id:$id )
+    deleteNote(id: $id)
   }
 `;

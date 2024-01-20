@@ -1,11 +1,11 @@
-.app-loading{
+.app-loading {
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  .app-loading__spinner{
+  .app-loading__spinner {
     max-width: 100px;
     max-height: 100px;
     width: 10% !important;

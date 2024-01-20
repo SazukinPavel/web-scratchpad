@@ -1,3 +1,3 @@
-import AppSnackbar from './Snackbar.jsx'
+import AppSnackbar from "./Snackbar.jsx";
 
-export default AppSnackbar
+export default AppSnackbar;

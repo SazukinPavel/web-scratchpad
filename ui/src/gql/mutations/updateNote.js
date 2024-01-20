@@ -1,7 +1,12 @@
 import { gql } from "@apollo/client";
 
 export default gql`
-  mutation update($title: String!, $description: String!, $topic: String!, $id: String!) {
+  mutation update(
+    $title: String!
+    $description: String!
+    $topic: String!
+    $id: String!
+  ) {
     updateNote(
       updateNoteInput: {
         title: $title
