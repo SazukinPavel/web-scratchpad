@@ -9,6 +9,10 @@ export default class AuthModule {
     return this.#api.post(`${this.base}/login`, data);
   }
 
+  logout() {
+    return this.#api.post(`${this.base}/logout`);
+  }
+
   register(data) {
     return this.#api.post(`${this.base}/register`, data);
   }

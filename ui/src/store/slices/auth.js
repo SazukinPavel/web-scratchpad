@@ -17,9 +17,15 @@ export const authSlice = createSlice({
       api.applyToken(action.payload.token);
       state.isAuthorized = true;
     },
+    logout(state) {
+      state.token = null;
+      state.user = null;
+      api.applyToken(null);
+      state.isAuthorized = false;
+    },
   },
 });
 
-export const { setAuthData } = authSlice.actions;
+export const { setAuthData, logout } = authSlice.actions;
 
 export default authSlice.reducer;

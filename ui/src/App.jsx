@@ -6,11 +6,12 @@ import AppSnackbar from "./components/app/AppSnackbar";
 import { setAuthData } from "./store/slices/auth.js";
 import { showSuccessSnackbar } from "./store/slices/snackbar.js";
 import Spinner from "./components/Spinner/index.js";
+import AppBar from "./components/app/AppBar/AppBar.jsx";
 
 function App() {
   const [isAuthorizedLoading, setIsAuthorizedLoading] = useState(false);
 
-  const { user,token } = useSelector((state) => state.auth);
+  const { user, token, isAuthorized } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const tryAuthorization = async () => {
@@ -39,6 +40,7 @@ function App() {
 
   return (
     <AppSnackbar>
+      {isAuthorized && <AppBar />}
       <Outlet />
     </AppSnackbar>
   );
